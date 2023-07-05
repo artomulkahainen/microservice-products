@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using ProductApi.Dtos;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace ProductApi.Tests.ItTests;
 
 public class ProfileControllerIT : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
-    private readonly string apiUrl = "/api/products";
+    private static string apiUrl = "/api/products";
 
     public ProfileControllerIT(WebApplicationFactory<Program> factory)
     {
@@ -22,9 +22,8 @@ public class ProfileControllerIT : IClassFixture<WebApplicationFactory<Program>>
 
         response.EnsureSuccessStatusCode();
 
-        var jsonList = JsonSerializer.Deserialize<IEnumerable<ProductDTO>>(
-            await response.Content.ReadAsStringAsync()
-        );
+        var contentString = await response.Content.ReadAsStringAsync();
+        var jsonList = JsonConvert.DeserializeObject<IEnumerable<ProductDTO>>(contentString);
 
         Assert.NotNull(jsonList);
         Assert.Equal(3, jsonList.Count());
