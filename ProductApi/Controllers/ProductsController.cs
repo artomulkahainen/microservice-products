@@ -6,19 +6,17 @@ using ProductApi.Services;
 namespace ProductApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("products")]
 public class ProductsController : ControllerBase
 {
-    private readonly ILogger<ProductsController> _logger;
     private readonly IProductsService _productsService;
 
-    public ProductsController(ILogger<ProductsController> logger, IProductsService productsService)
+    public ProductsController(IProductsService productsService)
     {
-        _logger = logger;
         _productsService = productsService;
     }
 
-    [HttpGet(Name = "GetProducts")]
+    [HttpGet]
     public IEnumerable<ProductDTO> GetProducts()
     {
         return _productsService
