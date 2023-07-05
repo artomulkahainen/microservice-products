@@ -34,3 +34,5 @@ app.UsePathBase(new PathString("/api"));
 app.UseRouting();
 
 app.Run();
+
+public partial class Program { }
