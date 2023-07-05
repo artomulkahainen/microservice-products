@@ -8,10 +8,10 @@ namespace ProductApi.Tests.UnitTests.Mappers
         [Fact]
         public void MapsDtoOk()
         {
-            const var product = new Product { Name = "Nice" };
-            const var dto = ProductMapper.MapProductToProductDTO(1, product);
+            var product = new Product { Name = "Nice" };
+            var dto = ProductMapper.MapProductToProductDTO(1, product);
 
-            Assert.Equal(dto.Id, 1);
+            Assert.Equal(1, dto.Id);
             Assert.Equal("Nice", dto.Name);
         }
     }
