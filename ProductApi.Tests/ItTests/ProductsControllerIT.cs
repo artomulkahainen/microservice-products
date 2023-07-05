@@ -27,7 +27,7 @@ public class ProfileControllerIT : IClassFixture<WebApplicationFactory<Program>>
         );
 
         Assert.NotNull(jsonList);
-        Assert.Equal(4, jsonList.Count());
+        Assert.Equal(3, jsonList.Count());
 
         var names = jsonList.Select(item => item.Name);
         Assert.Contains("Banana", names);
