@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using ProductApi.Data;
 using ProductApi.Services;
 using ProductApi.Services.Impl;
 
@@ -10,6 +12,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add db
+builder.Services
+    .AddEntityFrameworkNpgsql()
+    .AddDbContext<ApiDbContext>(
+        opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("ProductDbConnection"))
+    );
 
 // Add services
 builder.Services.AddScoped<IProductsService, ProductsServiceImpl>();
