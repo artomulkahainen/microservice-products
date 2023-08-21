@@ -13,5 +13,7 @@ public class ApiDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Product>().Property(p => p.Price).HasColumnType("numeric(18, 2)");
     }
 }
