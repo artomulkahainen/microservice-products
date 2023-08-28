@@ -1,18 +1,19 @@
 using ProductApi.Models;
+using ProductApi.Data.Repositories;
 
 namespace ProductApi.Services.Impl;
 
 public class ProductsServiceImpl : IProductsService
 {
-    private static readonly string[] Products = new[] { "Banana", "Apple", "Orange" };
+    private readonly IProductRepository _repository;
 
-    public ProductsServiceImpl() { }
+    public ProductsServiceImpl(IProductRepository repository)
+    {
+        _repository = repository;
+    }
 
     public IEnumerable<Product> GetAllProducts()
     {
-        return Enumerable
-            .Range(0, 3)
-            .Select(index => new Product { Name = Products[index] })
-            .ToArray();
+        return _repository.GetAllProducts();
     }
 }

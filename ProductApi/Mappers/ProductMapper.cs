@@ -5,8 +5,8 @@ namespace ProductApi.Mappers;
 
 public static class ProductMapper
 {
-    public static ProductDTO MapProductToProductDTO(int id, Product product)
+    public static ProductDTO MapProductToProductDTO(Product product)
     {
-        return new ProductDTO { Id = id, Name = product.Name };
+        return new(product.Id, product.Name, product.Price);
     }
 }

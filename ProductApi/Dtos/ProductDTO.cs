@@ -1,7 +1,3 @@
 namespace ProductApi.Dtos;
 
-public record ProductDTO
-{
-    public int Id { get; init; }
-    public string? Name { get; init; }
-}
+public record ProductDTO(Guid Id, string Name, decimal Price);
