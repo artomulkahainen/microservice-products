@@ -19,7 +19,6 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public IEnumerable<ProductDTO> GetProducts()
     {
-        var data = _productsService.GetAllProducts();
         return _productsService
             .GetAllProducts()
             .Select(ProductMapper.MapProductToProductDTO)
