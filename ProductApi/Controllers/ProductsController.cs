@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Dtos;
 using ProductApi.Mappers;
@@ -21,6 +22,15 @@ public class ProductsController : ControllerBase
     {
         return _productsService
             .GetAllProducts()
+            .Select(ProductMapper.MapProductToProductDTO)
+            .ToArray();
+    }
+
+    [HttpPost("by-ids")]
+    public IEnumerable<ProductDTO> GetProductsByIds([FromBody] GetProductsByIdsRequest request)
+    {
+        return _productsService
+            .GetProductsByIds(request.Ids)
             .Select(ProductMapper.MapProductToProductDTO)
             .ToArray();
     }
