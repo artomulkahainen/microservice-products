@@ -4,21 +4,24 @@ using Newtonsoft.Json;
 
 namespace ProductApi.Tests.ItTests;
 
-public class ProfileControllerIT : IClassFixture<WebApplicationFactory<Program>>
+public class ProductsControllerIT : IClassFixture<CustomWebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Program> _factory;
-    private static string apiUrl = "/api/products";
+    private readonly HttpClient _client;
+    private readonly CustomWebApplicationFactory<Program> _factory;
+    private static readonly string apiUrl = "/api/products";
 
-    public ProfileControllerIT(WebApplicationFactory<Program> factory)
+    public ProductsControllerIT(CustomWebApplicationFactory<Program> factory)
     {
         _factory = factory;
+        _client = _factory.CreateClient(
+            new WebApplicationFactoryClientOptions { AllowAutoRedirect = false }
+        );
     }
 
     [Fact]
     public async Task GetAllProductsSuccessfully()
     {
-        var client = _factory.CreateClient();
-        var response = await client.GetAsync(apiUrl);
+        var response = await _client.GetAsync(apiUrl);
 
         response.EnsureSuccessStatusCode();
 
@@ -26,9 +29,20 @@ public class ProfileControllerIT : IClassFixture<WebApplicationFactory<Program>>
         var jsonList = JsonConvert.DeserializeObject<IEnumerable<ProductDTO>>(contentString);
 
         Assert.NotNull(jsonList);
-        Assert.Equal(3, jsonList.Count());
+        Assert.Equal(5, jsonList.Count());
 
-        var names = jsonList.Select(item => item.Name);
-        Assert.Contains("Banana", names);
+        var itemNames = new List<string>()
+        {
+            "Banana",
+            "Gummy bear",
+            "Apple",
+            "Orange",
+            "Apple juice"
+        };
+
+        foreach (var item in jsonList)
+        {
+            Assert.Contains(item.Name, itemNames);
+        }
     }
 }

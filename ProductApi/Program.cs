@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProductApi.Data;
+using ProductApi.Data.Repositories;
 using ProductApi.Services;
 using ProductApi.Services.Impl;
 
@@ -19,6 +20,9 @@ builder.Services
     .AddDbContext<ApiDbContext>(
         opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("ProductDbConnection"))
     );
+
+// Add repositories
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
 // Add services
 builder.Services.AddScoped<IProductsService, ProductsServiceImpl>();

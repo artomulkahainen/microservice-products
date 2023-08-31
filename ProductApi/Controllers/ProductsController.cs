@@ -21,7 +21,7 @@ public class ProductsController : ControllerBase
     {
         return _productsService
             .GetAllProducts()
-            .Select((product, index) => ProductMapper.MapProductToProductDTO(index, product))
+            .Select(ProductMapper.MapProductToProductDTO)
             .ToArray();
     }
 }
