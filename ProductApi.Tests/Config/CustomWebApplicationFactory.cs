@@ -15,7 +15,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
         return _postgreSqlContainer.StartAsync();
     }
 
-    public Task DisposeAsync()
+    public new Task DisposeAsync()
     {
         return _postgreSqlContainer.DisposeAsync().AsTask();
     }
@@ -28,13 +28,19 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
                 d => d.ServiceType == typeof(DbContextOptions<ApiDbContext>)
             );
 
-            services.Remove(dbContextDescriptor);
+            if (dbContextDescriptor != null)
+            {
+                services.Remove(dbContextDescriptor);
+            }
 
             var dbConnectionDescriptor = services.SingleOrDefault(
                 d => d.ServiceType == typeof(DbConnection)
             );
 
-            services.Remove(dbConnectionDescriptor);
+            if (dbConnectionDescriptor != null)
+            {
+                services.Remove(dbConnectionDescriptor);
+            }
 
             services.AddSingleton<DbConnection>(container =>
             {

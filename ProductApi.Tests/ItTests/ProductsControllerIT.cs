@@ -8,7 +8,7 @@ public class ProductsControllerIT : IClassFixture<CustomWebApplicationFactory<Pr
 {
     private readonly HttpClient _client;
     private readonly CustomWebApplicationFactory<Program> _factory;
-    private static string apiUrl = "/api/products";
+    private static readonly string apiUrl = "/api/products";
 
     public ProductsControllerIT(CustomWebApplicationFactory<Program> factory)
     {
@@ -42,7 +42,7 @@ public class ProductsControllerIT : IClassFixture<CustomWebApplicationFactory<Pr
 
         foreach (var item in jsonList)
         {
-            Assert.True(itemNames.Any(value => string.Equals(value, item.Name)));
+            Assert.Contains(item.Name, itemNames);
         }
     }
 }
