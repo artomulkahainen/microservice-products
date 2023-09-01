@@ -479,3 +479,6 @@ $RECYCLE.BIN/
 
 # vscode config
 .config
+
+# out folder
+ProductApi/out
