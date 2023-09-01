@@ -85,7 +85,7 @@ public class ProductsControllerIT : IClassFixture<CustomWebApplicationFactory<Pr
         var jsonList = JsonConvert.DeserializeObject<IEnumerable<ProductDTO>>(contentString);
 
         Assert.NotNull(jsonList);
-        Assert.Equal(0, jsonList.Count());
+        Assert.Empty(jsonList);
     }
 
     [Fact]
@@ -102,6 +102,6 @@ public class ProductsControllerIT : IClassFixture<CustomWebApplicationFactory<Pr
         var jsonList = JsonConvert.DeserializeObject<IEnumerable<ProductDTO>>(contentString);
 
         Assert.NotNull(jsonList);
-        Assert.Equal(0, jsonList.Count());
+        Assert.Empty(jsonList);
     }
 }
