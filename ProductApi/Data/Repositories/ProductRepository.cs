@@ -15,8 +15,13 @@ public class ProductRepository : BaseRepository, IProductRepository
 
     public IEnumerable<Product> GetProductsByIds(List<Guid> ids)
     {
-        var quotedIds = ids.Select(id => $"'{id}'");
-        var sql = $"SELECT * FROM \"Products\" WHERE \"Id\" IN ({string.Join("','", quotedIds)})";
-        return _context.Products.FromSqlRaw(sql).ToList();
+        if (ids.Count > 0)
+        {
+            var quotedIds = ids.Select(id => $"'{id}'");
+            var sql = $"SELECT * FROM \"Products\" WHERE \"Id\" IN ({string.Join(",", quotedIds)})";
+            return _context.Products.FromSqlRaw(sql).ToList();
+        }
+
+        return new List<Product>() { };
     }
 }
