@@ -16,4 +16,9 @@ public class ProductsServiceImpl : IProductsService
     {
         return _repository.GetAllProducts();
     }
+
+    public IEnumerable<Product> GetProductsByIds(List<Guid> ids)
+    {
+        return _repository.GetProductsByIds(ids);
+    }
 }

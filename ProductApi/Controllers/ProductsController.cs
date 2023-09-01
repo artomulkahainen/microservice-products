@@ -24,4 +24,13 @@ public class ProductsController : ControllerBase
             .Select(ProductMapper.MapProductToProductDTO)
             .ToArray();
     }
+
+    [HttpPost("by-ids")]
+    public IEnumerable<ProductDTO> GetProductsByIds([FromBody] GetProductsByIdsRequest request)
+    {
+        return _productsService
+            .GetProductsByIds(request.Ids)
+            .Select(ProductMapper.MapProductToProductDTO)
+            .ToArray();
+    }
 }

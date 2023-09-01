@@ -6,6 +6,5 @@ public interface IProductRepository : IDisposable
 {
     IEnumerable<Product> GetAllProducts();
 
-    // IEnumerable<Product> GetProductsByIds(List<Guid> ids);
-    void Save();
+    IEnumerable<Product> GetProductsByIds(List<Guid> ids);
 }

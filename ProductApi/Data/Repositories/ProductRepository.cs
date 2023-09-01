@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ProductApi.Models;
 
 namespace ProductApi.Data.Repositories;
@@ -12,9 +13,15 @@ public class ProductRepository : BaseRepository, IProductRepository
         return _context.Products.ToList();
     }
 
-    /*public IEnumerable<Product> GetProductsByIds(List<Guid> ids)
+    public IEnumerable<Product> GetProductsByIds(List<Guid> ids)
     {
-        var sql = $"SELECT * FROM Products WHERE id IN ({string.Join(",", ids)})";
-        return _context.Products.FromSqlRaw(sql).ToList();
-    }*/
+        if (ids.Count > 0)
+        {
+            var quotedIds = ids.Select(id => $"'{id}'");
+            var sql = $"SELECT * FROM \"Products\" WHERE \"Id\" IN ({string.Join(",", quotedIds)})";
+            return _context.Products.FromSqlRaw(sql).ToList();
+        }
+
+        return new List<Product>() { };
+    }
 }
