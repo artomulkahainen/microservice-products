@@ -6,7 +6,7 @@ public class BaseRepository : IDisposable
 
     public BaseRepository(ApiDbContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public void Save()
@@ -18,14 +18,14 @@ public class BaseRepository : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!this.disposed)
+        if (!disposed)
         {
             if (disposing)
             {
                 _context.Dispose();
             }
         }
-        this.disposed = true;
+        disposed = true;
     }
 
     public void Dispose()
