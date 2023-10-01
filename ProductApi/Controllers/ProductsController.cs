@@ -17,20 +17,22 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<ProductDTO> GetProducts()
+    public async Task<IActionResult> GetProducts()
     {
-        return _productsService
-            .GetAllProducts()
-            .Select(ProductMapper.MapProductToProductDTO)
-            .ToArray();
+        return Ok(
+            (await _productsService.GetAllProducts())
+                .Select(ProductMapper.MapProductToProductDTO)
+                .ToArray()
+        );
     }
 
     [HttpPost("by-ids")]
-    public IEnumerable<ProductDTO> GetProductsByIds([FromBody] GetProductsByIdsRequest request)
+    public async Task<IActionResult> GetProductsByIds([FromBody] GetProductsByIdsRequest request)
     {
-        return _productsService
-            .GetProductsByIds(request.Ids)
-            .Select(ProductMapper.MapProductToProductDTO)
-            .ToArray();
+        return Ok(
+            (await _productsService.GetProductsByIds(request.Ids))
+                .Select(ProductMapper.MapProductToProductDTO)
+                .ToArray()
+        );
     }
 }
