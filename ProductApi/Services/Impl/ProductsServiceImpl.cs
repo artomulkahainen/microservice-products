@@ -12,13 +12,13 @@ public class ProductsServiceImpl : IProductsService
         _repository = repository;
     }
 
-    public IEnumerable<Product> GetAllProducts()
+    public async Task<IEnumerable<Product>> GetAllProducts()
     {
-        return _repository.GetAllProducts();
+        return await _repository.GetAllProducts();
     }
 
-    public IEnumerable<Product> GetProductsByIds(List<Guid> ids)
+    public async Task<IEnumerable<Product>> GetProductsByIds(List<Guid> ids)
     {
-        return _repository.GetProductsByIds(ids);
+        return await _repository.GetProductsByIds(ids);
     }
 }

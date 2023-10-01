@@ -4,7 +4,7 @@ namespace ProductApi.Services;
 
 public interface IProductsService
 {
-    IEnumerable<Product> GetAllProducts();
+    Task<IEnumerable<Product>> GetAllProducts();
 
-    IEnumerable<Product> GetProductsByIds(List<Guid> ids);
+    Task<IEnumerable<Product>> GetProductsByIds(List<Guid> ids);
 }

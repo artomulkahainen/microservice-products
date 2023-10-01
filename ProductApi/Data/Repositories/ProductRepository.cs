@@ -8,20 +8,13 @@ public class ProductRepository : BaseRepository, IProductRepository
     public ProductRepository(ApiDbContext context)
         : base(context) { }
 
-    public IEnumerable<Product> GetAllProducts()
+    public async Task<IEnumerable<Product>> GetAllProducts()
     {
-        return _context.Products.ToList();
+        return await _context.Products.ToListAsync();
     }
 
-    public IEnumerable<Product> GetProductsByIds(List<Guid> ids)
+    public async Task<IEnumerable<Product>> GetProductsByIds(List<Guid> ids)
     {
-        if (ids.Count > 0)
-        {
-            var quotedIds = ids.Select(id => $"'{id}'");
-            var sql = $"SELECT * FROM \"Products\" WHERE \"Id\" IN ({string.Join(",", quotedIds)})";
-            return _context.Products.FromSqlRaw(sql).ToList();
-        }
-
-        return new List<Product>() { };
+        return await _context.Products.Where(p => ids.Contains(p.Id)).ToListAsync();
     }
 }
